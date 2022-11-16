@@ -135,7 +135,7 @@ public class Gitapi {
         // commit
         Gitapi.commit(git, "write yaml", credProvider);
 
-        Gitapi.push_with_branch(git, "main", credProvider);
+        Gitapi.push_with_branch(git, "edit", credProvider);
 
         git.clean().call();
         git.close();
