@@ -1,0 +1,9 @@
+dependencies:
+- name: springboot-rest-demo
+  version: 0.0.5
+  repository: http://hub.hubHOST.com/chartrepo/ainote
+  alias: demo
+- name: exposecontroller
+  version: 2.3.82
+  repository: http://chartmuseum.jenkins-x.io
+  alias: cleanup
