@@ -97,8 +97,6 @@ public class Gitapi {
     }
 
     public static void main(String[] args) throws GitAPIException, IOException {
-        String email = "1772385614@qq.com";
-        String password = "Wodeshengli1";
         String apiToken = "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";
 
         CredentialsProvider credProvider = Gitapi.connect(email, password, apiToken);
