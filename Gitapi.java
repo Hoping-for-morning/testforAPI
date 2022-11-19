@@ -64,6 +64,16 @@ public class Gitapi {
                 .setRemote("origin").setRefSpecs(new RefSpec(branch)).call();
     }
 
+    //push with tag
+    public static void push_with_branch_tag(Git git, String branch, CredentialsProvider provider) throws GitAPIException, IOException, IOException {
+        if (branch == null) {
+            branch = git.getRepository().getBranch();
+        }
+        git.push()
+                .setCredentialsProvider(provider)
+                .setRemote("origin").setRefSpecs(new RefSpec(branch)).setPushTags().call(); //Push all tags under refs/tags/*.
+    }
+
     // 通过 revWalk 读取仓库日志
     public static List<String> getLogs(Repository repository) throws IOException {
         return getLogsSinceCommit(repository, null, null);
@@ -96,9 +106,21 @@ public class Gitapi {
         return commits;
     }
 
+    //add tag commend
+    public static void add_tag(Git git, String message, String tag, CredentialsProvider provider) throws GitAPIException {
+        git.commit().setMessage(message).call();
+        git.tag().setName(tag).call();
+    }
+
+    //create_new_branch
+    public static void create_new_branch(Git git,  String name, CredentialsProvider provider) throws GitAPIException {
+        git.checkout()
+                .setCreateBranch(true)
+                .setName(name)
+                .call();
+    }
+
     public static void main(String[] args) throws GitAPIException, IOException {
-        String email = "1772385614@qq.com";
-        String password = "Wodeshengli1";
         String apiToken = "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";
 
         CredentialsProvider credProvider = Gitapi.connect(email, password, apiToken);
@@ -136,10 +158,14 @@ public class Gitapi {
         Gitapi.commit(git, "write yaml", credProvider);
 
         Gitapi.push_with_branch(git, "edit", credProvider);
+        //Gitapi.add_tag(git, "add tag4", "tag4" ,credProvider);
+        String releaseVersion = "Test";
+        //Gitapi.create_new_branch(git, "new-branch",credProvider);
 
         git.clean().call();
         git.close();
-
+        //push tag
+        Gitapi.push_with_branch_tag(git, "new-branch", credProvider);
 
     }
 }

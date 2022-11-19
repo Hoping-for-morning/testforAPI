@@ -7,4 +7,3 @@ dependencies:
   version: 2.3.82
   repository: http://chartmuseum.jenkins-x.io
   alias: cleanup
-asdf
