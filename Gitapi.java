@@ -155,17 +155,40 @@ public class Gitapi {
         }
 
         // commit
-        Gitapi.commit(git, "write yaml", credProvider);
+        //Gitapi.commit(git, "write yaml", credProvider);
 
-        Gitapi.push_with_branch(git, "edit", credProvider);
+        //Gitapi.push_with_branch(git, "edit", credProvider);
         //Gitapi.add_tag(git, "add tag4", "tag4" ,credProvider);
-        String releaseVersion = "Test";
+        //String releaseVersion = "Test";
         //Gitapi.create_new_branch(git, "new-branch",credProvider);
+
+
+        //push tag
+        //Gitapi.push_with_branch_tag(git, "new-branch", credProvider);
+
+
+        int type_id = 0;
+        int tag = 0;
+        String task = "a";
+        TagMessage tag_message = new TagMessage();
+        //Type_id, tag and description 从前端传入，是否要加tag，
+        tag_message.setType_id(1);
+        String description = "restore commitizen.congifLoader.load to public API";
+        tag_message.setDescription(description);
+        String message = tag_message.setMessage();
+        if(tag == 1) {
+            Gitapi.add_tag(git, message, task, credProvider);
+            Gitapi.push_with_branch_tag(git, "new-branch", credProvider);
+        }
+        else {
+            Gitapi.commit(git, message, credProvider);
+            Gitapi.push_with_branch(git, "new-branch", credProvider);
+            //String SHA1 = Gitapi.getName();
+        }
 
         git.clean().call();
         git.close();
-        //push tag
-        Gitapi.push_with_branch_tag(git, "new-branch", credProvider);
+
 
     }
 }
