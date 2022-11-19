@@ -69,6 +69,17 @@ public class Gitapi {
         return getLogsSinceCommit(repository, null, null);
     }
 
+    // git tag 命令
+    public static void tag(String name) {
+        try {
+            git.tag()
+                    .setName(name)
+                    .call();
+        } catch (GitAPIException ex) {
+            throw new IllegalStateException("git tag failed", ex);
+        }
+    }
+
     public static List<String> getLogsSinceCommit(Repository repository, String commit) throws IOException {
         return getLogsSinceCommit(repository, null, commit);
     }
